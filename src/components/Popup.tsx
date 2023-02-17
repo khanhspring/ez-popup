@@ -22,7 +22,7 @@ type Props = {
 
 const OFFSET = 5;
 
-const Popup: FC<Props> = ({
+const Popup = React.forwardRef<HTMLElement, Props>(({
   content,
   placement = 'bottom',
   trigger = 'click',
@@ -33,7 +33,7 @@ const Popup: FC<Props> = ({
   open = false,
   afterClose = () => { },
   children
-}) => {
+}, ref) => {
   const [visible, setVisible] = useState(open);
   const [hiding, setHiding] = useState(false);
   const closeTimerRef = useRef<any>(null);
@@ -175,12 +175,21 @@ const Popup: FC<Props> = ({
     </>
   );
 
+  const handleMultipleRef = (el: any) => {
+    refs.setReference(el);
+    if (typeof ref === 'function') {
+      ref(el);
+    } else if (ref) {
+      ref.current = el;
+    }
+  }
+
   return (
     <>
-      {React.cloneElement(children, { ref: refs.setReference })}
+      {React.cloneElement(children, { ref: handleMultipleRef })}
       {createPortal(tooltip, document.body)}
     </>
   );
-}
+});
 
 export default Popup;

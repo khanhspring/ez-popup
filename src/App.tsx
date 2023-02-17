@@ -1,3 +1,4 @@
+import React from 'react';
 import Popup from "./components/Popup";
 
 function App() {
@@ -27,8 +28,10 @@ function App() {
 
   return (
     <div className="w-[500px] h-[2000px] m-auto text-center p-10 pt-[1000px] bg-slate-800">
-      <Popup content={content} placement='right'>
-        <button className='bg-blue-700 p-2 text-white'>Button</button>
+      <Popup content={content2} placement='left'>
+        <Popup content={content} placement='right'>
+          <button className='bg-blue-700 p-2 text-white'>Button</button>
+        </Popup>
       </Popup>
     </div>
   );
