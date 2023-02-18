@@ -1,5 +1,5 @@
 import { Placement } from '@floating-ui/react';
-import { FC, ReactElement } from 'react';
+import React, { ReactElement } from 'react';
 import { Trigger } from '../models/types';
 type Props = {
     content: string | ReactElement;
@@ -11,7 +11,8 @@ type Props = {
     clickOutsideToClose?: boolean;
     open?: boolean;
     afterClose?: () => void;
+    onOpenChange?: (open: boolean) => void;
     children: ReactElement;
 };
-declare const Popup: FC<Props>;
+declare const Popup: React.ForwardRefExoticComponent<Props & React.RefAttributes<HTMLElement>>;
 export default Popup;

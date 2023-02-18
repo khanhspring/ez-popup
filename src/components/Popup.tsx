@@ -17,6 +17,7 @@ type Props = {
   clickOutsideToClose?: boolean;
   open?: boolean;
   afterClose?: () => void;
+  onOpenChange?: (open: boolean) => void;
   children: ReactElement;
 }
 
@@ -32,6 +33,7 @@ const Popup = React.forwardRef<HTMLElement, Props>(({
   clickOutsideToClose = false,
   open = false,
   afterClose = () => { },
+  onOpenChange = (open: boolean) => { },
   children
 }, ref) => {
   const [visible, setVisible] = useState(open);
@@ -60,6 +62,7 @@ const Popup = React.forwardRef<HTMLElement, Props>(({
     setHiding(false);
     openTimerRef.current = setTimeout(() => {
       setVisible(true);
+      onOpenChange(true);
     }, 0);
   }
 
@@ -74,9 +77,10 @@ const Popup = React.forwardRef<HTMLElement, Props>(({
     closeTimerRef.current = setTimeout(() => {
       setVisible(false);
       setHiding(false);
+      onOpenChange(false);
       afterClose();
     }, 200);
-  }, [afterClose])
+  }, [afterClose, onOpenChange])
 
   const handleClick = useCallback(() => {
     if (trigger === 'hover') {

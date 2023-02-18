@@ -6,13 +6,13 @@ import { createPortal } from 'react-dom';
 import { useLockScroll } from '../hooks/useLockScroll';
 import { useOutsideClick } from '../hooks/useOutsideClick';
 var OFFSET = 5;
-var Popup = function (_a) {
-    var content = _a.content, _b = _a.placement, placement = _b === void 0 ? 'bottom' : _b, _c = _a.trigger, trigger = _c === void 0 ? 'click' : _c, _d = _a.className, className = _d === void 0 ? '' : _d, _e = _a.backdropClassName, backdropClassName = _e === void 0 ? '' : _e, _f = _a.backdrop, backdrop = _f === void 0 ? true : _f, _g = _a.clickOutsideToClose, clickOutsideToClose = _g === void 0 ? false : _g, _h = _a.open, open = _h === void 0 ? false : _h, _j = _a.afterClose, afterClose = _j === void 0 ? function () { } : _j, children = _a.children;
-    var _k = useState(open), visible = _k[0], setVisible = _k[1];
-    var _l = useState(false), hiding = _l[0], setHiding = _l[1];
+var Popup = React.forwardRef(function (_a, ref) {
+    var content = _a.content, _b = _a.placement, placement = _b === void 0 ? 'bottom' : _b, _c = _a.trigger, trigger = _c === void 0 ? 'click' : _c, _d = _a.className, className = _d === void 0 ? '' : _d, _e = _a.backdropClassName, backdropClassName = _e === void 0 ? '' : _e, _f = _a.backdrop, backdrop = _f === void 0 ? true : _f, _g = _a.clickOutsideToClose, clickOutsideToClose = _g === void 0 ? false : _g, _h = _a.open, open = _h === void 0 ? false : _h, _j = _a.afterClose, afterClose = _j === void 0 ? function () { } : _j, _k = _a.onOpenChange, onOpenChange = _k === void 0 ? function (open) { } : _k, children = _a.children;
+    var _l = useState(open), visible = _l[0], setVisible = _l[1];
+    var _m = useState(false), hiding = _m[0], setHiding = _m[1];
     var closeTimerRef = useRef(null);
     var openTimerRef = useRef(null);
-    var _m = useFloating({
+    var _o = useFloating({
         placement: placement,
         whileElementsMounted: autoUpdate,
         middleware: [
@@ -21,7 +21,7 @@ var Popup = function (_a) {
                 padding: 10
             })
         ]
-    }), x = _m.x, y = _m.y, strategy = _m.strategy, refs = _m.refs;
+    }), x = _o.x, y = _o.y, strategy = _o.strategy, refs = _o.refs;
     var show = function () {
         if (closeTimerRef.current) {
             clearTimeout(closeTimerRef.current);
@@ -32,6 +32,7 @@ var Popup = function (_a) {
         setHiding(false);
         openTimerRef.current = setTimeout(function () {
             setVisible(true);
+            onOpenChange(true);
         }, 0);
     };
     var hide = useCallback(function () {
@@ -45,9 +46,10 @@ var Popup = function (_a) {
         closeTimerRef.current = setTimeout(function () {
             setVisible(false);
             setHiding(false);
+            onOpenChange(false);
             afterClose();
         }, 200);
-    }, [afterClose]);
+    }, [afterClose, onOpenChange]);
     var handleClick = useCallback(function () {
         if (trigger === 'hover') {
             hide();
@@ -115,9 +117,18 @@ var Popup = function (_a) {
                     + " ".concat(backdropClassName)
                     + " ".concat(visible ? 'visible' : 'hidden')
                     + " ".concat(hiding ? 'animate-fade-out' : ''), onClick: onBackdropClick })));
+    var handleMultipleRef = function (el) {
+        refs.setReference(el);
+        if (typeof ref === 'function') {
+            ref(el);
+        }
+        else if (ref) {
+            ref.current = el;
+        }
+    };
     return (React.createElement(React.Fragment, null,
-        React.cloneElement(children, { ref: refs.setReference }),
+        React.cloneElement(children, { ref: handleMultipleRef }),
         createPortal(tooltip, document.body)));
-};
+});
 export default Popup;
 //# sourceMappingURL=Popup.js.map
