@@ -52,7 +52,7 @@ const Popup = React.forwardRef<HTMLElement, Props>(({
     ]
   });
 
-  const show = () => {
+  const show = useCallback(() => {
     if (closeTimerRef.current) {
       clearTimeout(closeTimerRef.current);
     }
@@ -64,7 +64,7 @@ const Popup = React.forwardRef<HTMLElement, Props>(({
       setVisible(true);
       onOpenChange(true);
     }, 0);
-  }
+  }, [onOpenChange])
 
   const hide = useCallback(() => {
     if (closeTimerRef.current) {
@@ -94,14 +94,14 @@ const Popup = React.forwardRef<HTMLElement, Props>(({
         show();
       }
     }
-  }, [trigger, hide, visible]);
+  }, [trigger, hide, visible, show]);
 
   const handleMouseEnter = useCallback(() => {
     if (trigger !== 'hover') {
       return;
     }
     show();
-  }, [trigger]);
+  }, [show, trigger]);
 
   const handleMouseLeave = useCallback(() => {
     if (trigger !== 'hover') {
@@ -142,7 +142,7 @@ const Popup = React.forwardRef<HTMLElement, Props>(({
     hide();
   }
 
-  useLockScroll(visible);
+  useLockScroll(visible && !hiding);
 
   const tooltip = (
     <>

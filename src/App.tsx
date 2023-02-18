@@ -29,7 +29,7 @@ function App() {
   )
 
   return (
-    <div className="w-[500px] h-[2000px] m-auto text-center p-10 pt-[1000px] bg-slate-800">
+    <div className="w-[500px] h-[500px] m-auto text-center p-10 pt-[100px] bg-slate-800">
       <Popup content={content} placement='right' open={open} onOpenChange={setOpen}>
         <button className='bg-blue-700 p-2 text-white'>Button</button>
       </Popup>
