@@ -22,5 +22,9 @@ export function useLockScroll(lock?: boolean) {
         } else {
             releaseBody();
         }
+
+        return () => {
+            releaseBody();
+        }
     }, [lock, fixedBody, releaseBody]);
 }

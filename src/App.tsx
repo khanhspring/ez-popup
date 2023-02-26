@@ -4,6 +4,7 @@ import Popup from "./components/Popup";
 function App() {
 
   const [open, setOpen] = useState(false);
+  const [render, setRender] = useState(true);
 
   const content2 = (
     <div className="w-[100px] h-[500px] bg-red-500">
@@ -30,9 +31,13 @@ function App() {
 
   return (
     <div className="w-[500px] h-[500px] m-auto text-center p-10 pt-[100px] bg-slate-800">
-      <Popup content={content} placement='right' open={open} onOpenChange={setOpen}>
-        <button className='bg-blue-700 p-2 text-white'>Button</button>
-      </Popup>
+      {
+        render &&
+        <Popup content={content} placement='right' open={open} onOpenChange={setOpen}>
+          <button className='bg-blue-700 p-2 text-white'>Button</button>
+        </Popup>
+      }
+      <button className='bg-rose-600 p-2 text-white fixed z-[2000] top-0 left-0' onClick={() => setRender(false)}>Destroy</button>
     </div>
   );
 }
