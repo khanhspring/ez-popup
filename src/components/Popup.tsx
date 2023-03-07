@@ -1,5 +1,5 @@
 import { offset } from '@floating-ui/core';
-import { autoUpdate, shift } from '@floating-ui/dom';
+import { autoUpdate, flip, shift } from '@floating-ui/dom';
 import { Placement, useFloating } from '@floating-ui/react';
 import React, { FC, ReactElement, useCallback, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
@@ -46,8 +46,12 @@ const Popup = React.forwardRef<HTMLElement, Props>(({
     whileElementsMounted: autoUpdate,
     middleware: [
       offset(OFFSET),
+      flip({
+        crossAxis: true,
+        mainAxis: true
+      }),
       shift({
-        padding: 10
+        padding: 10,
       })
     ]
   });

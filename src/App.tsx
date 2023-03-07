@@ -19,7 +19,7 @@ function App() {
   )
 
   const content = (
-    <div className="w-[100px] h-[500px] bg-red-500">
+    <div className="w-[500px] h-[500px] bg-red-500">
       <Popup content={content2} placement='right' className="z-[1003]" backdrop={false} trigger="click" clickOutsideToClose>
         <button className='bg-blue-700 p-2 text-white w-full' onClick={() => setOpen(false)}>Button</button>
       </Popup>
@@ -30,10 +30,10 @@ function App() {
   )
 
   return (
-    <div className="w-[500px] h-[500px] m-auto text-center p-10 pt-[100px] bg-slate-800">
+    <div className="w-[2000px] h-[2000px] m-auto text-center p-10 pt-[800px] bg-slate-800">
       {
         render &&
-        <Popup content={content} placement='right' open={open} onOpenChange={setOpen}>
+        <Popup content={content} placement='left' open={open} onOpenChange={setOpen}>
           <button className='bg-blue-700 p-2 text-white'>Button</button>
         </Popup>
       }
