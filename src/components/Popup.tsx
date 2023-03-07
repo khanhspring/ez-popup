@@ -79,7 +79,7 @@ const Popup = React.forwardRef<HTMLElement, Props>(({
       setHiding(false);
       onOpenChange(false);
       afterClose();
-    }, 200);
+    }, 0);
   }, [afterClose, onOpenChange])
 
   const handleClick = useCallback(() => {
