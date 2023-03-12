@@ -1,6 +1,6 @@
 {
   "name": "ez-rc-popup",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "private": false,
   "description": "React Popup component",
   "main": "./dist/cjs/index.js",

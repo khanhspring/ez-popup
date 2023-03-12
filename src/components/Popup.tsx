@@ -19,6 +19,7 @@ type Props = {
   afterClose?: () => void;
   onOpenChange?: (open: boolean) => void;
   children: ReactElement;
+  disabled?: boolean;
 }
 
 const OFFSET = 5;
@@ -34,7 +35,8 @@ const Popup = React.forwardRef<HTMLElement, Props>(({
   open = false,
   afterClose = () => { },
   onOpenChange = (open: boolean) => { },
-  children
+  children,
+  disabled
 }, ref) => {
   const [visible, setVisible] = useState(open);
   const [hiding, setHiding] = useState(false);
@@ -190,6 +192,14 @@ const Popup = React.forwardRef<HTMLElement, Props>(({
     } else if (ref) {
       ref.current = el;
     }
+  }
+
+  if (disabled) {
+    return (
+      <>
+        {children}
+      </>
+    )
   }
 
   return (

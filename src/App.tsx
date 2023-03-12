@@ -33,7 +33,7 @@ function App() {
     <div className="w-[2000px] h-[2000px] m-auto text-center p-10 pt-[800px] bg-slate-800">
       {
         render &&
-        <Popup content={content} placement='left' open={open} onOpenChange={setOpen}>
+        <Popup content={content} placement='left' open={open} onOpenChange={setOpen} disabled>
           <button className='bg-blue-700 p-2 text-white'>Button</button>
         </Popup>
       }
